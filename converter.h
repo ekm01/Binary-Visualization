@@ -1,7 +1,6 @@
 #ifndef CONVERTER_H
 #define CONVERTER_H
 
-// standard libs
 #include <assert.h>
 #include <stddef.h>
 #include <stdint.h>
