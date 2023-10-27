@@ -7,33 +7,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct {
-  char x;
-  char y;
-} Point;
-
-void printp(Point p);
-
-Point convert(char c);
-
-Point *readConvert(char *filename);
+unsigned char **readConvert(char *filename);
 
 size_t getSize(char *filename);
+
+void freePoints(unsigned char **points, size_t size);
 
 #endif // CONVERTER_H
 
 #ifdef CONVERTER_IMPL
 
-void printp(Point p) { printf("%d, %d\n", (int)p.x, (int)p.y); }
-
-Point convert(char c) {
-  Point res;
-  res.x = (c & 0xF0) >> 4;
-  res.y = c & 0x0F;
-  return res;
-}
-
-Point *readConvert(char *filename) {
+unsigned char **readConvert(char *filename) {
   FILE *file = fopen(filename, "rb");
   if (file == NULL) {
     fprintf(stderr, "File with the name %s does not exist!\n", filename);
@@ -41,15 +25,20 @@ Point *readConvert(char *filename) {
   }
 
   // allocate array of points wrt. size of file
-  size_t size = getSize(filename);
-  Point *points = (Point *)malloc(size * sizeof(Point));
+  size_t size = getSize(filename) / 2;
+  unsigned char **points =
+      (unsigned char **)malloc(size * sizeof(unsigned char *));
+  assert(points != NULL);
 
   // read bytes from file and fill array with points
-  char byte;
+  unsigned char buf[2];
   size_t i = 0;
-  while (fread(&byte, 1, 1, file) == 1) {
-    Point p = convert(byte);
-    points[i] = p;
+  while (fread(&buf, 1, 2, file) == 2) {
+    points[i] = (unsigned char *)malloc(2);
+    assert(points[i] != NULL);
+
+    points[i][0] = buf[0];
+    points[i][1] = buf[1];
     i++;
   }
   fclose(file);
@@ -67,6 +56,13 @@ size_t getSize(char *filename) {
   }
   fclose(file);
   return size;
+}
+
+void freePoints(unsigned char **points, size_t size) {
+  for (size_t i = 0; i < size; ++i) {
+    free(points[i]);
+  }
+  free(points);
 }
 
 #endif // CONVERTER_IMPL

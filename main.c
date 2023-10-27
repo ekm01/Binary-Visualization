@@ -1,24 +1,20 @@
-#include <stdio.h>
 #define CONVERTER_IMPL
 #include "converter.h"
 
 #define BMP_IMPL
 #include "bmp.h"
 
-void print(Point *p, size_t size) {
-  for (size_t i = 0; i < size; ++i) {
+void print(unsigned char **p, size_t size) {
+  for (size_t i = 0; i < 10; ++i) {
     printf("%zu: ", i);
-    printp(p[i]);
+    printf("%x, %x\n", (int)p[i][0], (int)p[i][1]);
   }
 }
 
 int main(void) {
-  size_t len = EDGE * EDGE * 3;
-  unsigned char *pixels = (unsigned char *)malloc(len);
-  for (size_t i = 0; i < len; ++i) {
-    pixels[i] = 255;
-  }
-  BMPImage image = imageInit(pixels);
-  writeImage(&image, "test.bmp");
+  unsigned char **p = readConvert("test.jpg");
+  size_t size = getSize("test.jpg") / 2;
+  print(p, size);
+  freePoints(p, size);
   return 0;
 }
