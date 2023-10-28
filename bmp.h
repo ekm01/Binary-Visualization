@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-#define EDGE 4096
+#define EDGE 256
 
 typedef struct {
   unsigned int size;

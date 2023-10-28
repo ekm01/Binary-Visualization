@@ -13,6 +13,9 @@ size_t getSize(char *filename);
 
 void freePoints(unsigned char **points, size_t size);
 
+void fillPixels(unsigned char **points, size_t size, unsigned char *pixels,
+                size_t edge);
+
 #endif // CONVERTER_H
 
 #ifdef CONVERTER_IMPL
@@ -63,6 +66,20 @@ void freePoints(unsigned char **points, size_t size) {
     free(points[i]);
   }
   free(points);
+}
+
+#define POS(x, y, e) (x * 3 * e) + (y * 3)
+
+void fillPixels(unsigned char **points, size_t size, unsigned char *pixels,
+                size_t edge) {
+  for (size_t i = 0; i < size; ++i) {
+    unsigned char x = points[i][0];
+    unsigned char y = points[i][1];
+    size_t pos = POS(x, y, edge);
+    pixels[pos] = 255;
+    pixels[pos + 1] = 255;
+    pixels[pos + 2] = 255;
+  }
 }
 
 #endif // CONVERTER_IMPL
