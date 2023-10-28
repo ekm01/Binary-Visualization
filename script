@@ -4,7 +4,7 @@ import subprocess
 import os
 
 try:
-    command = "clang -Wall -Wextra --debug -o main main.c"
+    command = "clang -Wall -Wextra -o main main.c"
     completed = subprocess.run(command, shell=True, check=True)
 except Exception as e:
     print("Error while compiling the program!", e)
@@ -21,12 +21,8 @@ for file in files:
         s = file.split(".")
         v = os.path.join(indir, file)
         args = ["./main", v, s[0] + "_" + s[1] + ".bmp"]
-
         path = os.path.join(outdir, args[2])
-
         subprocess.run(args, check=True)
-
-        # move output file to outputdir
         os.rename(args[2], path)
     except Exception as e:
         print("Error running the program!", e)
