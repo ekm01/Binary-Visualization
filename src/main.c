@@ -1,4 +1,3 @@
-#include <stdio.h>
 #define CONVERTER_IMPL
 #include "converter.h"
 

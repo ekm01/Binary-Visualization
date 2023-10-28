@@ -4,7 +4,7 @@ import subprocess
 import os
 
 try:
-    command = "clang -Wall -Wextra -o main main.c"
+    command = "clang -Wall -Wextra -o main src/main.c"
     completed = subprocess.run(command, shell=True, check=True)
 except Exception as e:
     print("Error while compiling the program!", e)
