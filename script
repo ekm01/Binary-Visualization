@@ -4,7 +4,7 @@ import subprocess
 import os
 
 try:
-    command = "clang -Wall -Wextra -o main src/main.c"
+    command = "clang -lm -Wall -Wextra -o main src/main.c"
     completed = subprocess.run(command, shell=True, check=True)
 except Exception as e:
     print("Error while compiling the program!", e)
@@ -18,9 +18,15 @@ files = os.listdir("input")
 
 for file in files:
     try:
-        s = file.split(".")
+        args = []
         v = os.path.join(indir, file)
-        args = ["./main", v, s[0] + "_" + s[1] + ".bmp"]
+        print("File to be processed: " + file)
+        if "." in file:
+            s = file.split(".")
+            args = ["./main", v, s[0] + "_" + s[1] + ".bmp", "3"]
+        else:
+            args = ["./main", v, file + "_" + ".bmp", "3"]
+
         path = os.path.join(outdir, args[2])
         subprocess.run(args, check=True)
         os.rename(args[2], path)
