@@ -67,11 +67,9 @@ Triple readConvert(char *filename, int group, size_t size) {
   size_t i = 0;
 
   // set algorithm depending on group
-  Alg algorithm;
+  Alg algorithm = algOdd;
   if (group % 2 == 0) {
     algorithm = algEven;
-  } else {
-    algorithm = algOdd;
   }
 
   while (fread(&buf, 1, group, file) == (size_t)group) {
@@ -176,17 +174,15 @@ Double algEven(int group, unsigned char *buf) {
 size_t mini(size_t a, size_t b) {
   if (a <= b) {
     return a;
-  } else {
-    return b;
   }
+  return b;
 }
 
 size_t maxi(size_t a, size_t b) {
   if (a <= b) {
     return b;
-  } else {
-    return a;
   }
+  return a;
 }
 
 #endif // CONVERTER_IMPL
