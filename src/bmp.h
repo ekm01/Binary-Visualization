@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-#define EDGE 2048
+#define DEFAULT_EDGE 2048
 
 typedef struct {
   unsigned int size;
@@ -28,9 +28,9 @@ typedef struct {
   unsigned char *pixels;
 } BMPImage;
 
-BMPHeader headerInit();
+BMPHeader headerInit(size_t edge);
 
-BMPImage imageInit(unsigned char *pixels);
+BMPImage imageInit(unsigned char *pixels, size_t edge);
 
 void writeImage(BMPImage *image, char *fileName);
 
@@ -38,16 +38,16 @@ void writeImage(BMPImage *image, char *fileName);
 
 #ifdef BMP_IMPL
 
-BMPHeader headerInit() {
+BMPHeader headerInit(size_t edge) {
   BMPHeader header;
 
-  header.size = 3 * EDGE * EDGE;
+  header.size = 3 * edge * edge;
   header.reserved1 = 0;
   header.reserved2 = 0;
   header.offset = 54;
   header.DIB_header_size = 40;
-  header.image_width = EDGE;
-  header.image_height = EDGE;
+  header.image_width = edge;
+  header.image_height = edge;
   header.planes = 1;
   header.bits_per_pixel = 24;
   header.compression = 0;
@@ -60,9 +60,9 @@ BMPHeader headerInit() {
   return header;
 }
 
-BMPImage imageInit(unsigned char *pixels) {
+BMPImage imageInit(unsigned char *pixels, size_t edge) {
   BMPImage image;
-  image.header = headerInit();
+  image.header = headerInit(edge);
   image.pixels = pixels;
   return image;
 }
