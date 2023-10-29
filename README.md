@@ -1,7 +1,7 @@
 # bin_vis
 Binary visualization tool for generating a BMP image through translating the raw binary code of any file of any type wrt. output file size and group size (how many bytes are to be grouped).
 
-1. Use *make* to generate the executable *bin_vis*:
+1. Use *make* to create the executable *bin_vis*:
 ```
 make
 ```
@@ -13,3 +13,4 @@ make
 ```
 python3 script.py <groupsize> <width/height>
 ```
+4. An *output* directory is created after the batch generation with all the BMP files
