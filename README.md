@@ -1,5 +1,5 @@
 # bin_vis
-Binary visualization tool for generating a BMP image out of the binary code of any file type wrt. output file size and group size (how many bytes are to be grouped).
+Binary visualization tool for generating a BMP image through translating the raw binary code of any file of any type wrt. output file size and group size (how many bytes are to be grouped).
 
 1. Use *make* to generate the executable *bin_vis*:
 ```
