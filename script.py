@@ -1,5 +1,6 @@
 import subprocess
 import os
+import sys
 
 try:
     command = "clang -lm -Wall -Wextra -o main src/main.c"
@@ -16,6 +17,10 @@ files = os.listdir("input")
 
 default_groupsize = "3"
 default_edge = "1024"
+
+if len(sys.argv) == 3:
+    default_groupsize = sys.argv[1]
+    default_edge = sys.argv[2]
 
 for file in files:
     try:
@@ -37,5 +42,7 @@ for file in files:
         path = os.path.join(outdir, args[2])
         subprocess.run(args, check=True)
         os.rename(args[2], path)
+        print()
     except Exception as e:
         print("Error running the program!", e)
+        print()
