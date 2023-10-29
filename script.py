@@ -3,7 +3,7 @@ import os
 import sys
 
 try:
-    command = "clang -lm -Wall -Wextra -o main src/main.c"
+    command = "clang -lm -Wall -Wextra -o bin_vis src/main.c"
     completed = subprocess.run(command, shell=True, check=True)
 except Exception as e:
     print("Error while compiling the program!", e)
@@ -30,14 +30,20 @@ for file in files:
         if "." in file:
             s = file.split(".")
             args = [
-                "./main",
+                "./bin_vis",
                 v,
                 s[0] + "_" + s[1] + ".bmp",
                 default_groupsize,
                 default_edge,
             ]
         else:
-            args = ["./main", v, file + "_" + ".bmp", default_groupsize, default_edge]
+            args = [
+                "./bin_vis",
+                v,
+                file + "_" + ".bmp",
+                default_groupsize,
+                default_edge,
+            ]
 
         path = os.path.join(outdir, args[2])
         subprocess.run(args, check=True)
