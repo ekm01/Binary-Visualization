@@ -4,7 +4,7 @@ import sys
 
 try:
     command = "clang -lm -Wall -Wextra -o bin_vis src/main.c"
-    completed = subprocess.run(command, shell=True, check=True)
+    subprocess.run(command, shell=True, check=True)
 except Exception as e:
     print("Error while compiling the program!", e)
 
