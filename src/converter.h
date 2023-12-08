@@ -33,13 +33,12 @@ Double algOdd(int group, unsigned char *buf);
 
 Double algEven(int group, unsigned char *buf);
 
-size_t mini(size_t a, size_t b);
-
-size_t maxi(size_t a, size_t b);
-
 #endif // CONVERTER_H
 
 #ifdef CONVERTER_IMPL
+
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 #define GROUP_SIZE_MAX 16
 
@@ -78,8 +77,8 @@ Triple readConvert(char *filename, int group, size_t size) {
 
     Double points = algorithm(group, buf);
 
-    size_t maxx = maxi(points.x, points.y);
-    size_t minn = mini(points.x, points.y);
+    size_t maxx = MAX(points.x, points.y);
+    size_t minn = MIN(points.x, points.y);
 
     if (minn < min) {
       min = minn;
@@ -169,20 +168,6 @@ Double algEven(int group, unsigned char *buf) {
   res.x = x;
   res.y = y;
   return res;
-}
-
-size_t mini(size_t a, size_t b) {
-  if (a <= b) {
-    return a;
-  }
-  return b;
-}
-
-size_t maxi(size_t a, size_t b) {
-  if (a <= b) {
-    return b;
-  }
-  return a;
 }
 
 #endif // CONVERTER_IMPL
